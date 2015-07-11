@@ -104,7 +104,7 @@
 						Scripted. Idempotent code.<br/>
 						<ul>
 							<li>Lines: docs - 72, code - 56, templates - 329</li>
-							<li>Templates contain client-specific configuraion</li>
+							<li>Templates contain project-specific configuration</li>
 							<li>Code includes functionality not in alternatives above:
 								<ul>
 									<li>DH generation (8 lines)</li>
@@ -148,8 +148,15 @@ ls()
 
 				<section>
 					<h2>Non-shell languages are not fit for the job</h2>
+					<pre>ls["-a"] | grep["-v", "\\.py"] | wc["-l"]</pre>
+					<p>vs</p>
+					<pre>ls -a | grep -v '\.py' | wc -l</pre>
+				</section>
+
+				<section>
+					<h2>Non-shell languages are not fit for the job</h2>
 					<ul>
-						<li>Shell script should be roughly copy+paste from the CLI</li>
+						<li>Shell script should be able to contain copy+paste parts from the CLI</li>
 						<li>I'm not ready to type much more in CLI, I need to get the job done</li>
 					</ul>
 				</section>
