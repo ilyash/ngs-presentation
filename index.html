@@ -116,6 +116,13 @@
 				</section>
 
 				<section>
+					<h2>Nginx example - summary</h2>
+					<p>
+						The overlap of provided (Chef and Puppet) and required functionality is roughly zero.
+					</p>
+				</section>
+
+				<section>
 					<h2>Nginx example - how are you screwed</h2>
 					<p>... when using alternatives above ... because life</p>
 					<pre>if lsof -n | grep -q 'nginx.* 300u';then
@@ -138,6 +145,9 @@ fi
 
 				<section>
 					<h2>Non-shell languages are not fit for the job</h2>
+					<p>
+						<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
+					</p>
 					<pre>from plumbum import local
 ls = local["ls"]
 ls()
@@ -159,6 +169,20 @@ ls()
 						<li>Shell script should be able to contain copy+paste parts from the CLI</li>
 						<li>I'm not ready to type much more in CLI, I need to get the job done</li>
 					</ul>
+				</section>
+
+				<section>
+					<h2>Real programming language</h2>
+					<p>
+						<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
+					</p>
+					<p>
+						vs
+					</p>
+					<p>
+						<q>Ever wished the shell would be a real programming language?</q> -- NGS project
+					</p>
+
 				</section>
 
 			</div>
