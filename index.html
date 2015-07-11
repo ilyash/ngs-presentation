@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Next generation shells</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="main.css">
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Next generation shells</h1>
+					<p>Ilya Sher</p>
+					<p>Ops &amp; dev consultant</p>
+				</section>
+
+				<section>
+					<h2>Why shell scripting?</h2>
+					<ul>
+						<li>simplicity</li>
+						<li>power</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Why shell scripting?</h2>
+					<p>Nginx example - popular alternatives<p>
+				</section>
+
+				<section>
+					<h2>Nginx example - alternative 1</h2>
+					<p>
+						Nginx Chef cookbook (as of 2015-07, commit e36944b)<br/>
+						<ul>
+							<li>55M downloads, CentOS, Fedora, Debian, Ubuntu, RedHat, Amazon, ...</li>
+							<li>Lines: readme - 521, recipies - 1577, attributes - 592, templates - 953</li>
+							<li>Who is paying the complexity cost?</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>Nginx example - alternative 2</h2>
+					<p>
+						Puppet Nginx module (as of 2015-07, commit d1b0908)<br/>
+						<ul>
+							<li>230K downloads, Debian, RedHat, Ubuntu</li>
+							<li>Lines: readme - 286, Puppet code - 2517, templates - 892</li>
+							<li>Who is paying the complexity cost?</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>Nginx example - bonus slide</h2>
+					<p>- Let's try Nginx but I think we will switch to Apache later.</p>
+					<p>- I know! We need abstraction cookbook!</p>
+				</section>
+
+				<section>
+					<h2>Why shell scripting?</h2>
+					<p>Nginx example - the sane way<p>
+				</section>
+
+				<section>
+					<h2>Nginx example - the sane way</h2>
+					<p>
+						Scripted. Idempotent code.<br/>
+						<ul>
+							<li>Lines: docs - 72, code - 56, templates - 329</li>
+							<li>Templates contain client-specific configuraion</li>
+							<li>Code includes functionality not in alternatives above:
+								<ul>
+									<li>DH generation (8 lines)</li>
+									<li>Handle socket leak on reload (22 lines)</li>
+								</ul>
+							</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>Nginx example - how are you screwed</h2>
+					<p>... when using alternatives above ... because life</p>
+					<pre>if lsof -n | grep -q 'nginx.* 300u';then
+  ...
+  service nginx restart
+  ...
+fi
+
+if ! pgrep -f 'nginx: master' &gt;/dev/null;then
+  ...
+  service nginx start
+  ...
+fi
+</pre>
+				</section>
+
+				<section>
+					<h2>OK. But why not Ruby or Python or ...?</h2>
+				</section>
+
+				<section>
+					<h2>Non-shell languages are not fit for the job</h2>
+					<pre>from plumbum import local
+ls = local["ls"]
+ls()
+					</pre>
+					<p>vs</p>
+					<pre>ls</pre>
+				</section>
+
+				<section>
+					<h2>Non-shell languages are not fit for the job</h2>
+					<ul>
+						<li>Shell script should be roughly copy+paste from the CLI</li>
+						<li>I'm not ready to type much more in CLI, I need to get the job done</li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
