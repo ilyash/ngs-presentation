@@ -125,7 +125,7 @@
 				<section>
 					<h2>Nginx example - how are you screwed</h2>
 					<p>... when using alternatives above ... because life</p>
-					<pre>if lsof -n | grep -q 'nginx.* 300u';then
+					<pre><code>if lsof -n | grep -q 'nginx.* 300u';then
   ...
   service nginx restart
   ...
@@ -135,8 +135,7 @@ if ! pgrep -f 'nginx: master' &gt;/dev/null;then
   ...
   service nginx start
   ...
-fi
-</pre>
+fi</code></pre>
 				</section>
 
 				<section>
@@ -148,19 +147,19 @@ fi
 					<p>
 						<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
 					</p>
-					<pre>from plumbum import local
+					<pre><code>from plumbum import local
 ls = local["ls"]
 ls()
-					</pre>
+					</code></pre>
 					<p>vs</p>
-					<pre>ls</pre>
+					<pre><code>ls</code></pre>
 				</section>
 
 				<section>
 					<h2>Non-shell languages are not fit for the job</h2>
-					<pre>ls["-a"] | grep["-v", "\\.py"] | wc["-l"]</pre>
+					<pre><code>ls["-a"] | grep["-v", "\\.py"] | wc["-l"]</code></pre>
 					<p>vs</p>
-					<pre>ls -a | grep -v '\.py' | wc -l</pre>
+					<pre><code>ls -a | grep -v '\.py' | wc -l</code></pre>
 				</section>
 
 				<section>
@@ -180,9 +179,67 @@ ls()
 						vs
 					</p>
 					<p>
-						<q>Ever wished the shell would be a real programming language?</q> -- NGS project
+						<q>Ever wished the shell would be a real programming language?</q> -- Next generation shell project (NGS) 
 					</p>
+				</section>
 
+				<section>
+					<h2>Vision</h2>
+					<p>A shell and a language that
+					<ul>
+						<li>can run the commands directly</li>
+						<li>
+							have all the &quot;real language&quot; power available
+							<ul>
+								<li>sane syntax</li>
+								<li>data structures</li>
+								<li>flexibility and extensibility</li>
+							</ul>
+						</li>
+						<li>can manage a cloud</li>
+						<li>21st century UI and UX (... kind of)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>A shell and a language ...</h2>
+					<p>One language</p>
+					<p>
+						&quot;Power to the people&quot; - the language that implements the shell and the scripting language of the shell should be the same language.
+					</p>
+				</section>
+
+				<section>
+					<h2>The language - syntax</h2>
+					<img src="bash-syntax-y.jpg" alt="Bash syntax - Y U do this to me"/>
+				</section>
+
+				<section>
+					<h2>The language - syntax</h2>
+					<p>syntaxes actually</p>
+					<pre><code>defg get_all_instances(filters) {
+	if 'VPCID' in ENV {
+		filters.push(['vpc-id', ENV['VPCID']])
+	}
+	f = mkfilters(filters)
+	instances = ``aws ec2 describe-instances $*f``
+		.Reservations.Instances.flatten()
+}</code></pre>
+				</section>
+
+				<section>
+					<h2>The language - extensibility</h2>
+					<p>multi-dispatch (code from stdlib)</p>
+					<pre><code>
+# Or throw exception?
+defg __parse(p:Process) { String(p) }
+
+defg __parse(p:Process) {
+	s = String(p)
+	guard s and s[0] == '{'
+	s.from_json()
+}
+					</code></pre>
 				</section>
 
 			</div>
