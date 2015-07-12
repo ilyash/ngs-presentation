@@ -242,6 +242,55 @@ defg __parse(p:Process) {
 					</code></pre>
 				</section>
 
+				<section>
+					<h2>The language - optimized for common cases</h2>
+					<p><code>.Reservations.Instances</code> (code from stdlib)</p>
+					<pre><code>
+defg __get_attr(a:Array, attr:String) {
+	map(a, __get_attr, attr)
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>The language - trying to fill the type/method matrix</h2>
+					<p>code from stdlib + demo</p>
+					<pre><code>defg map(n:Number, mapper:F, *args) {
+	ret = []
+	for(i=0;i&lt;n;i=i+1) {
+		ret.push(mapper(i, *args))
+	}
+	ret
+}</code></pre>
+					<pre><code>echo(10.map(F(x) {x*2}))</code></pre>
+				</section>
+
+				<section>
+					<h2>The language - trying to fill the type/method matrix</h2>
+					<p>code from stdlib</p>
+					<pre><code>defg Number(b:Bool) { if b {1}{0} }</code></pre>
+				</section>
+
+				<section>
+					<h2>The language - syntactic sugar for common cases</h2>
+					<pre><code>val @ expr ==&gt; val.map(F(X=null, Y=null, Z=null) { expr })</code></pre>
+					<p>so</p>
+					<pre><code>echo(5.map(F(x) {x*2}))</code></pre>
+					<p>is</p>
+					<pre><code>echo(5 @ X*2)</code></pre>
+					<p>outputs</p>
+					<pre>[0, 2, 4, 6, 8]</pre>
+				</section>
+
+				<section>
+					<h2>The language - syntax consistency</h2>
+					<pre><code>val @ expr ==&gt; val.map(F(X=null, Y=null, Z=null) { expr })</code></pre>
+					<p>so</p>
+					<pre><code>val @? expr ==&gt; val.filter(F(X=null, Y=null, Z=null) { expr })</code></pre>
+					<pre><code>@ expr ==&gt; F(X=null, Y=null, Z=null) { expr }</code></pre>
+				</section>
+
+
 			</div>
 
 		</div>
