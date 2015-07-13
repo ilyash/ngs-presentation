@@ -91,7 +91,14 @@
 					<h2>Nginx example - bonus slide</h2>
 					<p>- Let's try Nginx but I think we will switch to Apache later.</p>
 					<p>- I know! We need abstraction cookbook!</p>
+					<p>Is this the right solution?</p>
 				</section>
+
+				<section>
+					<h2>Nginx example - bonus slide</h2>
+					<img src="skip-req.jpg" alt="Skip asking about requirements one more time" />
+				</section>
+
 
 				<section>
 					<h2>Why shell scripting?</h2>
@@ -107,7 +114,7 @@
 							<li>Templates contain project-specific configuration</li>
 							<li>Code includes functionality not in alternatives above:
 								<ul>
-									<li>DH generation (8 lines)</li>
+									<li>DH file generation (8 lines)</li>
 									<li>Handle socket leak on reload (22 lines)</li>
 								</ul>
 							</li>
@@ -225,6 +232,7 @@ ls()
 	instances = ``aws ec2 describe-instances $*f``
 		.Reservations.Instances.flatten()
 }</code></pre>
+					<p>(bad naming stolen from boto)</p>
 				</section>
 
 				<section>
