@@ -16,6 +16,8 @@
 
 		<link rel="stylesheet" href="reveal.js/css/reveal.css">
 		<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+		<!--<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">-->
+		<!--<link rel="stylesheet" href="reveal.js/css/theme/solarized.css" id="theme">-->
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
@@ -49,32 +51,50 @@
 					<p>Ilya Sher</p>
 					<p>Ops &amp; dev consultant</p>
 				</section>
-
+				<section>
+					<h2>Talk sections</h2>
+					<ul>
+						<li>Why shell scripting is still relevant</li>
+						<li>Current problems</li>
+						<li>Suggested solution vision</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Talk sections</h2>
+					<ul>
+						<li>Why shell scripting is still relevant</li>
+						<li class="irrelevant">Current problems</li>
+						<li class="irrelevant">Suggested solution vision</li>
+					</ul>
+				</section>
 				<section>
 					<h2>Why shell scripting?</h2>
 					<ul>
-						<li>simplicity</li>
+						<li>DSL</li>
 						<li>power</li>
+						<li>simplicity (*)</li>
 					</ul>
+					<p>Shell</p>
+					<pre><code>echo '&hellip;' &gt;/etc/apt/sources.list.d/no-product-ads-here.list</code></pre>
+					<p>Want to try that in Java? (from Stack Overflow, edited)</p>
+					<pre><code>FileUtils.writeStringToFile(
+new File("/etc/apt/sources.list.d/no-product-ads-here.list"),
+"&hellip;");</code></pre>
 				</section>
-
 				<section>
 					<h2>Why shell scripting?</h2>
 					<p>Nginx example - popular alternatives<p>
 				</section>
-
 				<section>
 					<h2>Nginx example - alternative 1</h2>
 					<p>
 						Nginx Chef cookbook (as of 2015-07, commit e36944b)<br/>
 						<ul>
-							<li>55M downloads, CentOS, Fedora, Debian, Ubuntu, RedHat, Amazon, ...</li>
+							<li>55M downloads, CentOS, Fedora, Debian, Ubuntu, RedHat, Amazon, &hellip;</li>
 							<li>Lines: readme - 521, recipies - 1577, attributes - 592, templates - 953</li>
-							<li>Who is paying the complexity cost?</li>
 						</ul>
 					</p>
 				</section>
-
 				<section>
 					<h2>Nginx example - alternative 2</h2>
 					<p>
@@ -82,29 +102,20 @@
 						<ul>
 							<li>230K downloads, Debian, RedHat, Ubuntu</li>
 							<li>Lines: readme - 286, Puppet code - 2517, templates - 892</li>
-							<li>Who is paying the complexity cost?</li>
 						</ul>
 					</p>
 				</section>
-
 				<section>
 					<h2>Nginx example - bonus slide</h2>
-					<p>- Let's try Nginx but I think we will switch to Apache later.</p>
-					<p>- I know! We need abstraction cookbook!</p>
+					<p>Think disregarding the context of this presentation</p>
+					<p><q>- Let's try Nginx but I think we will switch to Apache later.</q></p>
+					<p><q>- I know! We need abstraction cookbook!</q></p>
 					<p>Is this the right solution?</p>
 				</section>
-
 				<section>
 					<h2>Nginx example - bonus slide</h2>
 					<img src="skip-req.jpg" alt="Skip asking about requirements one more time" />
 				</section>
-
-
-				<section>
-					<h2>Why shell scripting?</h2>
-					<p>Nginx example - the sane way<p>
-				</section>
-
 				<section>
 					<h2>Nginx example - the sane way</h2>
 					<p>
@@ -121,108 +132,154 @@
 						</ul>
 					</p>
 				</section>
-
 				<section>
 					<h2>Nginx example - summary</h2>
 					<p>
 						The overlap of provided (Chef and Puppet) and required functionality is roughly zero.
 					</p>
 				</section>
-
 				<section>
 					<h2>Nginx example - how are you screwed</h2>
-					<p>... when using alternatives above ... because life</p>
+					<p>&hellip; when using Chef or Puppet &hellip; because life</p>
 					<pre><code>if lsof -n | grep -q 'nginx.* 300u';then
-  ...
+  &hellip;
   service nginx restart
-  ...
+  &hellip;
 fi
 
 if ! pgrep -f 'nginx: master' &gt;/dev/null;then
-  ...
+  &hellip;
   service nginx start
-  ...
+  &hellip;
 fi</code></pre>
 				</section>
-
 				<section>
-					<h2>OK. But why not Ruby or Python or ...?</h2>
+					<h2>OK, shell scripting. Why not Ruby or Python or &hellip;?</h2>
 				</section>
-
 				<section>
-					<h2>Non-shell languages are not fit for the job</h2>
+					<h2>What is a shell language?</h2>
+					<p>My definition</p>
+					<dl>
+						<dt>Shell language<dt>
+						<dd>A language that is used by a shell.</dd>
+					</dl>
+				</section>
+				<section>
+					<h2>Why not language X?</h2>
+					<p>Python example</p>
 					<p>
 						<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
 					</p>
 					<pre><code>from plumbum import local
-ls = local["ls"]
-ls()
-					</code></pre>
+ls = local["ls"]</code></pre>
+					<pre><code>ls()</code></pre>
 					<p>vs</p>
 					<pre><code>ls</code></pre>
 				</section>
-
 				<section>
-					<h2>Non-shell languages are not fit for the job</h2>
+					<h2>Why not language X?</h2>
+					<p>Python example</p>
 					<pre><code>ls["-a"] | grep["-v", "\\.py"] | wc["-l"]</code></pre>
 					<p>vs</p>
 					<pre><code>ls -a | grep -v '\.py' | wc -l</code></pre>
 				</section>
-
 				<section>
-					<h2>Non-shell languages are not fit for the job</h2>
+					<h2>Why not language X?</h2>
+					<p>Non-shell languages are not fit for the job</p>
 					<ul>
 						<li>Shell script should be able to contain copy+paste parts from the CLI</li>
 						<li>I'm not ready to type much more in CLI, I need to get the job done</li>
 					</ul>
 				</section>
-
 				<section>
-					<h2>Real programming language</h2>
+					<h2>What's wrong with current shell languages?</h2>
 					<p>
-						<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
-					</p>
-					<p>
-						vs
-					</p>
-					<p>
-						<q>Ever wished the shell would be a real programming language?</q> -- Next generation shell project (NGS) 
+						<ul>
+							<li>DSL for changed domain</li>
+							<li>Missing data structures</li>
+							<li>Syntax (because of compatibility issues)</li>
+						</ul>
 					</p>
 				</section>
-
+				<section>
+					<h2>So, which language?</h2>
+					<p>A real programming language of course</p>
+					<p>Should be DSL</p>
+				</section>
 				<section>
 					<h2>Vision</h2>
 					<p>A shell and a language that
 					<ul>
-						<li>can run the commands directly</li>
+						<li>21st century UI and UX (&hellip; kind of)</li>
+						<li>can run the commands directly (DSL)</li>
 						<li>
 							have all the &quot;real language&quot; power available
 							<ul>
-								<li>sane syntax</li>
+								<li>sane consistent syntax</li>
 								<li>data structures</li>
 								<li>flexibility and extensibility</li>
 							</ul>
 						</li>
 						<li>can manage a cloud</li>
-						<li>21st century UI and UX (... kind of)</li>
+						<li>sane defaults / common cases optimized</li>
 					</ul>
 				</section>
-
 				<section>
-					<h2>A shell and a language ...</h2>
+					<h2>Vision: A shell and a language</h2>
 					<p>One language</p>
 					<p>
 						&quot;Power to the people&quot; - the language that implements the shell and the scripting language of the shell should be the same language.
 					</p>
 				</section>
-
 				<section>
-					<h2>The language - syntax</h2>
+					<h2>Vision: 21st century UI and UX</h2>
+					<p>&hellip; kind of</p>
+				</section>
+				<section>
+					<h2>The shell - non blocking UI</h2>
+					<p>Except for editors, how many interactive programs do you really use?</p>
+					<pre># dd if=/dev/hda &hellip; | rsync -aP &hellip;
+_</pre>
+					<p>&hellip; and you're blocked. Should be:</p>
+					<pre>[56%, ETA 20m] dd if=/dev/hda &hellip; | rsync -aP &hellip;
+# _</pre>
+				</section>
+				<section>
+					<h2>The shell - progress heuristics</h2>
+					<pre>dd if=/dev/hda &hellip;</pre>
+					<p>Has only one open file (except for 0,1,2) to read from, position in <code>/proc/PID/fdinfo/FD</code></p>
+				</section>
+				<section>
+					<h2>The shell - UI mock</h2>
+					<iframe width="640" height="480" src="https://www.youtube.com/embed/T5Bpu4thVNo" frameborder="0" allowfullscreen></iframe>
+				</section>
+				<section>
+					<h2>Vision: syntax</h2>
+				</section>
+				<section>
+					<h3>Syntax</h3>
 					<img src="bash-syntax-y.jpg" alt="Bash syntax - Y U do this to me"/>
 				</section>
-
 				<section>
-					<h2>The language - syntax</h2>
+					<h3>syntax</h3>
+					<p>No</p>
+					<pre><code>ping_output=`$MYADMIN ping 2&gt;&amp;1`; ping_alive=$(( ! $? ))
+&hellip;
+if [ "$1" = "check_alive"  -a  $ping_alive = 1 ] ||
+&hellip;
+echo -e "&hellip; resulted in\n$ping_output\n"
+					</code></pre>
+					<p>Yes</p>
+					<pre><code>ping=$($MYADMIN ping 2&gt;&amp;1)
+&hellip;
+if mode == 'check_alive' and ping or
+&hellip;
+echo("&hellip; resulted in \n${ping}\n")
+					</code></pre>
+
+				</section>
+				<section>
+					<h3>syntax</h3>
 					<p>syntaxes actually</p>
 					<pre><code>defg get_all_instances(filters) {
 	if 'VPCID' in ENV {
@@ -234,9 +291,11 @@ ls()
 }</code></pre>
 					<p>(bad naming stolen from boto)</p>
 				</section>
-
 				<section>
-					<h2>The language - extensibility</h2>
+					<h2>Vision: flexibility and extensibility</h2>
+				</section>
+				<section>
+					<h3>Extensibility</h3>
 					<p>multi-dispatch (code from stdlib)</p>
 					<pre><code>
 # Or throw exception?
@@ -249,9 +308,26 @@ defg __parse(p:Process) {
 }
 					</code></pre>
 				</section>
-
 				<section>
-					<h2>The language - optimized for common cases</h2>
+					<h2>Vision: DSL</h2>
+				</section>
+				<section>
+					<h3>DSL</h3>
+					<code></code>
+					<pre><code>if $(-f /etc/debian_version) → if $(test -f /etc/debian_version)</code></pre>
+					<p>Code from stdlib</p>
+					<pre><code>defg Bool(p:Process) { p.status == 'exited' and p.code == 0 }
+&hellip;
+defg '$()'(*args) {
+	guard args.len() &gt; 1
+	guard startsWith(args[0], '-')
+	args = ['test'] + args
+	# todo: better syntax for this:
+	($())(*args)
+}</code></pre>
+				</section>
+				<section>
+					<h3>optimized for common cases</h3>
 					<p><code>.Reservations.Instances</code> (code from stdlib)</p>
 					<pre><code>
 defg __get_attr(a:Array, attr:String) {
@@ -259,9 +335,41 @@ defg __get_attr(a:Array, attr:String) {
 }
 					</code></pre>
 				</section>
-
 				<section>
-					<h2>The language - trying to fill the type/method matrix</h2>
+					<h3>syntactic sugar for common cases - @</h3>
+					<p>@ wraps the code on the right with lambda</p>
+					<pre><code>val @  expr  →  val.map(F(X=null, Y=null, Z=null) { expr })</code></pre>
+					<pre><code>val @? expr  →  val.filter(F(X=null, Y=null, Z=null) { expr })</code></pre>
+					<pre><code>    @  expr  →  F(X=null, Y=null, Z=null) { expr }</code></pre>
+				</section>
+				<section>
+					<h3>syntactic sugar for common cases - @</h3>
+					<p>Example: val @ expr</p>
+					<pre><code>echo(5 @ X*2) → echo(5.map(F(x) {x*2}))</code></pre>
+					<p>outputs</p>
+					<pre>[0, 2, 4, 6, 8]</pre>
+				</section>
+				<section>
+					<h3>syntactic sugar for common cases - @</h3>
+					<p>Example: @ expr</p>
+					<p>Code from stdlib</p>
+					<pre><code>defg flatten(s:Seq) {
+	ret = []
+	s.each(@X.each(@ret.push(X)))
+	ret
+}</code></pre>
+				</section>
+				<section>
+					<h3>syntactic sugar for common cases - returns</h3>
+					<pre><code>if x==1 { return y }</code></pre>
+					<p>is</p>
+					<pre><code>x==1 returns y</code></pre>
+				</section>
+				<section>
+					<h2>Vision: consistency</h2>
+				</section>
+				<section>
+					<h3>filling the type/method matrix</h3>
 					<p>code from stdlib + demo</p>
 					<pre><code>defg map(n:Number, mapper:F, *args) {
 	ret = []
@@ -272,33 +380,20 @@ defg __get_attr(a:Array, attr:String) {
 }</code></pre>
 					<pre><code>echo(10.map(F(x) {x*2}))</code></pre>
 				</section>
-
 				<section>
-					<h2>The language - trying to fill the type/method matrix</h2>
+					<h3>filling the type/method matrix</h3>
 					<p>code from stdlib</p>
 					<pre><code>defg Number(b:Bool) { if b {1}{0} }</code></pre>
 				</section>
-
 				<section>
-					<h2>The language - syntactic sugar for common cases</h2>
-					<pre><code>val @ expr ==&gt; val.map(F(X=null, Y=null, Z=null) { expr })</code></pre>
-					<p>so</p>
-					<pre><code>echo(5.map(F(x) {x*2}))</code></pre>
-					<p>is</p>
-					<pre><code>echo(5 @ X*2)</code></pre>
-					<p>outputs</p>
-					<pre>[0, 2, 4, 6, 8]</pre>
+					<h3>consistent syntax</h3>
+					<p>Example 1</p>
+					<pre><code>my_func(*args)</code></pre>
+					<pre><code>arr = [1, 2, *args, 3, 4]</code></pre>
+					<p>Example 2</p>
+					<pre><code>my_func(**kwargs)</code></pre>
+					<pre><code>opts = {'my': 'default', **options_i_got, 'my2': 'override'}</code></pre>
 				</section>
-
-				<section>
-					<h2>The language - syntax consistency</h2>
-					<pre><code>val @ expr ==&gt; val.map(F(X=null, Y=null, Z=null) { expr })</code></pre>
-					<p>so</p>
-					<pre><code>val @? expr ==&gt; val.filter(F(X=null, Y=null, Z=null) { expr })</code></pre>
-					<pre><code>@ expr ==&gt; F(X=null, Y=null, Z=null) { expr }</code></pre>
-				</section>
-
-
 			</div>
 
 		</div>
