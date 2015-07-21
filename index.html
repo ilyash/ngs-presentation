@@ -57,6 +57,7 @@
 					<h1>By</h1>
 					<p>Ilya Sher</p>
 					<p>Operations &amp; software</p>
+					<p>Since circa 1987, professionally since 2001</p>
 				</section>
 				<section>
 					<h2>This was expected</h2>
@@ -75,7 +76,7 @@
 					<!--<h2>History</h2>-->
 					<section>
 					<h2>History</h2>
-					<p>(History source is Wikipedia)</p>
+					<p>(History sources are Wikipedia and TLDP.org)</p>
 					</section>
 					<section>
 						<h2>1971</h2>
@@ -85,22 +86,71 @@
 						<h2>1975 to 1977</h2>
 						<blockquote>&hellip; clear that the Thompson shell was inadequate for most serious programming tasks.</blockquote>
 						PWB shell, aka Mashey shell.
-						<li>internal if-then-else</li>
-						<li>switch</li>
-						<li>while </li>
-						<li>$v - one letter variables and $ sigill</li>
+						<ul>
+							<li>internal if-then-else</li>
+							<li>switch</li>
+							<li>while </li>
+							<li>$v - one letter variables and $ sigill</li>
+						</ul>
 					</section>
 					<section>
 						<h2>circa 1977</h2>
 						Bourne shell is distributed, replacement for Mashey shell.
-						<li>complete rewrite</li>
-						<li>environment variables</li>
-						<li>eliminated goto</li>
-						<li>command substitution</li>
+						<ul>
+							<li>complete rewrite</li>
+							<li>environment variables</li>
+							<li>eliminated goto</li>
+							<li>command substitution</li>
+						</ul>
+						<p>Later</p>
+						<ul>
+							<li>built in <code>test</code></li>
+							<li><code>#</code> comment</li>
+							<li>Functions &amp; <code>return</code></li>
+							<li>Job control</li>
+						</ul>
 					</section>
 					<section>
 						<h2>1989</h2>
 						bash beta v0.99 released
+						<ul>
+							<li>superset of the Bourne shell command syntax</li>
+							<li>completion</li>
+							<li>command history</li>
+							<li><code>$(&hellip;)</code> command substitution</li>
+							<li><code>$((math))</code> calculations</li>
+							<li><code>&lt;(process substitution)</code></li>
+						</ul>
+					</section>
+					<section>
+						<h2>1996</h2>
+						bash 2 adds array variables
+					</section>
+					<section>
+						<h2>2004</h2>
+						bash 3.0 adds built in regular expressions
+						<code>if [[ "$variable" =~ "your-regex" ]]</code>
+					</section>
+					<section>
+						<h2>2009</h2>
+						<p>
+							bash 4.0
+						</p>
+						<ul>
+							<li>associative arrays</li>
+							<li><code>coproc</code></li>
+							<li>optional <code>**</code> globbing</li>
+							<li>command_not_found_handle</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Status for 2015</h2>
+						<p>(Personal opinion)</p>
+						<ul>
+							<li>bash rules</li>
+							<li>zsh is used sometimes</li>
+							<li>rest is crap</li>
+						</ul>
 					</section>
 				</section>
 				<section>
@@ -116,8 +166,8 @@
 						<pre><code>echo '&hellip;' &gt;/etc/apt/sources.list.d/no-product-ads-here.list</code></pre>
 						<p>Want to try that in Java? (from Stack Overflow, edited)</p>
 						<pre><code>FileUtils.writeStringToFile(
-	new File("/etc/apt/sources.list.d/no-product-ads-here.list"),
-	"&hellip;");</code></pre>
+new File("/etc/apt/sources.list.d/no-product-ads-here.list"),
+"&hellip;");</code></pre>
 					</section>
 					<section>
 						<h2>Why shell scripting?</h2>
@@ -126,7 +176,7 @@
 					<section>
 						<h2>Nginx example - alternative 1</h2>
 						<p>
-							Nginx Chef cookbook (as of 2015-07, commit e36944b)<br/>
+							Nginx Chef cookbook (as of 2015-07, commit e36944b)
 							<ul>
 								<li>55M downloads, CentOS, Fedora, Debian, Ubuntu, RedHat, Amazon, &hellip;</li>
 								<li>Lines: readme - 521, recipies - 1577, attributes - 592, templates - 953</li>
@@ -136,7 +186,7 @@
 					<section>
 						<h2>Nginx example - alternative 2</h2>
 						<p>
-							Puppet Nginx module (as of 2015-07, commit d1b0908)<br/>
+							Puppet Nginx module (as of 2015-07, commit d1b0908)
 							<ul>
 								<li>230K downloads, Debian, RedHat, Ubuntu</li>
 								<li>Lines: readme - 286, Puppet code - 2517, templates - 892</li>
@@ -180,16 +230,16 @@
 						<h2>Nginx example - how are you screwed</h2>
 						<p>&hellip; when using Chef or Puppet &hellip; because life</p>
 						<pre><code>if lsof -n | grep -q 'nginx.* 300u';then
-	  &hellip;
-	  service nginx restart
-	  &hellip;
-	fi
+  &hellip;
+  service nginx restart
+  &hellip;
+fi
 
-	if ! pgrep -f 'nginx: master' &gt;/dev/null;then
-	  &hellip;
-	  service nginx start
-	  &hellip;
-	fi</code></pre>
+if ! pgrep -f 'nginx: master' &gt;/dev/null;then
+  &hellip;
+  service nginx start
+  &hellip;
+fi</code></pre>
 					</section>
 				</section>
 				<section>
@@ -212,7 +262,7 @@
 							<q>Ever wished the compactness of shell scripts be put into a real programming language?</q> -- plumbum project
 						</p>
 						<pre><code>from plumbum import local
-	ls = local["ls"]</code></pre>
+ls = local["ls"]</code></pre>
 						<pre><code>ls()</code></pre>
 						<p>vs</p>
 						<pre><code>ls</code></pre>
@@ -296,20 +346,40 @@
 	# _</pre>
 					</section>
 					<section>
-						<h2>The shell - progress heuristics</h2>
+						<h2>The shell - progress indication</h2>
 						<pre>dd if=/dev/hda &hellip;</pre>
-						<p>Has only one open file (except for 0,1,2) to read from, position in <code>/proc/PID/fdinfo/FD</code></p>
+						<p>Possible heuristic: Has only one open file (except for 0,1,2) to read from, position in <code>/proc/PID/fdinfo/FD</code></p>
+						<p>&hellip; and add API for progress and status already!</p>
 					</section>
 					<section>
 						<h2>The shell - completion</h2>
 						<p>No: simple instead of right</p>
 						<pre><code># apt-cache search ^bash completion
-	bash - &hellip;
-	bash-completion - &hellip;
-	python-argcomplete - &hellip;
-	python3-argcomplete - &hellip;
-	# apt-get install &lt;TAB&gt;&lt;TAB&gt;
-	Display all 54316 possibilities? (y or n)</code></pre>
+bash - &hellip;
+bash-completion - &hellip;
+python-argcomplete - &hellip;
+python3-argcomplete - &hellip;
+# apt-get install &lt;TAB&gt;&lt;TAB&gt;
+Display all 54316 possibilities? (y or n)</code></pre>
+						<pre><code># dd if=debi&lt;TAB&gt;&lt;TAB&gt;
+dd debian-7.2.0-amd64-netinst.iso</code></pre>
+						<p>Debian bug #742126, since 2014</p>
+					</section>
+					<section>
+						<h2>The shell - pipe (pre)view</h2>
+						<ul>
+							<li>Preview when composing</li>
+							<li>Snoop on running jobs</li>
+						</ul>
+					</section>
+					<section>
+						<h2>The shell - history</h2>
+						<p>Context. Currently only timestamp.</p>
+						<ul>
+							<li>Exit code</li>
+							<li>Output</li>
+							<li>Values of used variables</li>
+						</ul>
 					</section>
 					<section>
 						<h2>The shell - UI mock</h2>
@@ -328,32 +398,40 @@
 						<h3>syntax</h3>
 						<p>No</p>
 						<pre><code>ping_output=`$MYADMIN ping 2&gt;&amp;1`; ping_alive=$(( ! $? ))
-	&hellip;
-	if [ "$1" = "check_alive"  -a  $ping_alive = 1 ] ||
-	&hellip;
-	echo -e "&hellip; resulted in\n$ping_output\n"
-						</code></pre>
+&hellip;
+if [ "$1" = "check_alive"  -a  $ping_alive = 1 ] ||
+&hellip;
+echo -e "&hellip; resulted in\n$ping_output\n"</code></pre>
 						<p>Yes</p>
 						<pre><code>ping=$($MYADMIN ping 2&gt;&amp;1)
-	&hellip;
-	if mode == 'check_alive' and ping or
-	&hellip;
-	echo("&hellip; resulted in \n${ping}\n")
-						</code></pre>
-
+&hellip;
+if mode == 'check_alive' and ping or
+&hellip;
+echo("&hellip; resulted in \n${ping}\n")</code></pre>
 					</section>
 					<section>
 						<h3>syntax</h3>
 						<p>syntaxes actually</p>
 						<pre><code>defg get_all_instances(filters) {
-		if 'VPCID' in ENV {
-			filters.push(['vpc-id', ENV['VPCID']])
-		}
-		f = mkfilters(filters)
-		instances = ``aws ec2 describe-instances $*f``
-			.Reservations.Instances.flatten()
-	}</code></pre>
+	if 'VPCID' in ENV {
+		filters.push(['vpc-id', ENV['VPCID']])
+	}
+	f = mkfilters(filters)
+	instances = ``aws ec2 describe-instances $*f``
+		.Reservations.Instances.flatten()
+}</code></pre>
 						<p>(bad naming stolen from boto)</p>
+					</section>
+				</section>
+				<section>
+					<!--<h2>Vision: Cloud</h2>-->
+					<section>
+						<h2>Vision: Cloud</h2>
+						<ul>
+							<li>Auto-groups, auto-split</li>
+							<li>Syntax, not escaping</li>
+							<li>Stop SSH-ate-my-input madness</li>
+						</ul>
 					</section>
 				</section>
 				<section>
@@ -384,22 +462,22 @@ defg __parse(p:Process) {
 						<pre><code>if $(-f /etc/debian_version) → if $(test -f /etc/debian_version)</code></pre>
 						<p>Code from stdlib</p>
 						<pre><code>defg Bool(p:Process) { p.status == 'exited' and p.code == 0 }
-	&hellip;
-	defg '$()'(*args) {
-		guard args.len() &gt; 1
-		guard startsWith(args[0], '-')
-		args = ['test'] + args
-		# todo: better syntax for this:
-		($())(*args)
-	}</code></pre>
+&hellip;
+defg '$()'(*args) {
+	guard args.len() &gt; 1
+	guard startsWith(args[0], '-')
+	args = ['test'] + args
+	# todo: better syntax for this:
+	($())(*args)
+}</code></pre>
 					</section>
 					<section>
 						<h3>optimized for common cases</h3>
 						<p><code>.Reservations.Instances</code> (code from stdlib)</p>
 						<pre><code>
-	defg __get_attr(a:Array, attr:String) {
-		map(a, __get_attr, attr)
-	}
+defg __get_attr(a:Array, attr:String) {
+	map(a, __get_attr, attr)
+}
 						</code></pre>
 					</section>
 					<section>
@@ -421,10 +499,10 @@ defg __parse(p:Process) {
 						<p>Example: @ expr</p>
 						<p>Code from stdlib</p>
 						<pre><code>defg flatten(s:Seq) {
-		ret = []
-		s.each(@X.each(@ret.push(X)))
-		ret
-	}</code></pre>
+	ret = []
+	s.each(@X.each(@ret.push(X)))
+	ret
+}</code></pre>
 					</section>
 					<section>
 						<h3>syntactic sugar for common cases - returns</h3>
@@ -442,12 +520,12 @@ defg __parse(p:Process) {
 						<h3>filling the type/method matrix</h3>
 						<p>code from stdlib + demo</p>
 						<pre><code>defg map(n:Number, mapper:F, *args) {
-		ret = []
-		for(i=0;i&lt;n;i=i+1) {
-			ret.push(mapper(i, *args))
-		}
-		ret
-	}</code></pre>
+	ret = []
+	for(i=0;i&lt;n;i=i+1) {
+		ret.push(mapper(i, *args))
+	}
+	ret
+}</code></pre>
 						<pre><code>echo(10.map(F(x) {x*2}))</code></pre>
 					</section>
 					<section>
