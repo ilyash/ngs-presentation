@@ -1,6 +1,9 @@
 .reveal pre.big {
 	font-size: 1em;
 }
+.reveal div.slide-number {
+	font-size: 1em;
+}
 .irrelevant {
 	opacity: 0.4;
 }
