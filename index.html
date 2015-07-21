@@ -79,7 +79,7 @@
 					<!--<h2>History</h2>-->
 					<section>
 					<h2>History</h2>
-					<p>(From Wikipedia and TLDP.org)</p>
+						<p>(From Wikipedia and TLDP.org)</p>
 					</section>
 					<section>
 						<h2>1971</h2>
@@ -92,7 +92,7 @@
 					<section>
 						<h2>1975 to 1977</h2>
 						<blockquote>&hellip; clear that the Thompson shell was inadequate for most serious programming tasks.</blockquote>
-						PWB shell, aka Mashey shell.
+						<p>PWB shell, aka Mashey shell.</p>
 						<ul>
 							<li>internal if-then-else</li>
 							<li>switch</li>
@@ -102,7 +102,7 @@
 					</section>
 					<section>
 						<h2>circa 1977</h2>
-						Bourne shell is distributed, replacement for Mashey shell.
+						<p>Bourne shell is distributed, replacement for Mashey shell.</p>
 						<ul>
 							<li>complete rewrite</li>
 							<li>environment variables</li>
@@ -119,7 +119,7 @@
 					</section>
 					<section>
 						<h2>1989</h2>
-						bash beta v0.99 released
+						<p>bash beta v0.99 released</p>
 						<ul>
 							<li>superset of the Bourne shell command syntax</li>
 							<li>completion</li>
@@ -131,12 +131,12 @@
 					</section>
 					<section>
 						<h2>1996</h2>
-						bash 2 adds array variables
+						<p>bash 2 adds array variables</p>
 					</section>
 					<section>
 						<h2>2004</h2>
-						bash 3.0 adds built in regular expressions
-						<code>if [[ "$variable" =~ "your-regex" ]]</code>
+						<p>bash 3.0 adds built in regular expressions</p>
+						<pre><code>if [[ "$variable" =~ "your-regex" ]]</code></pre>
 					</section>
 					<section>
 						<h2>2009</h2>
@@ -347,10 +347,10 @@ ls = local["ls"]</code></pre>
 						<h2>The shell - non blocking UI</h2>
 						<p>Except for editors, how many interactive programs do you really use?</p>
 						<pre># dd if=/dev/hda &hellip; | rsync -aP &hellip;
-	_</pre>
+_</pre>
 						<p>&hellip; and you're blocked. Should be:</p>
 						<pre>[56%, ETA 20m] dd if=/dev/hda &hellip; | rsync -aP &hellip;
-	# _</pre>
+# _</pre>
 					</section>
 					<section>
 						<h2>The shell - progress indication</h2>
@@ -368,9 +368,6 @@ python-argcomplete - &hellip;
 python3-argcomplete - &hellip;
 # apt-get install &lt;TAB&gt;&lt;TAB&gt;
 Display all 54316 possibilities? (y or n)</code></pre>
-						<pre><code># dd if=debi&lt;TAB&gt;&lt;TAB&gt;
-dd debian-7.2.0-amd64-netinst.iso</code></pre>
-						<p>Debian bug #742126, since 2014</p>
 					</section>
 					<section>
 						<h2>The shell - pipe (pre)view</h2>
@@ -551,9 +548,12 @@ defg __get_attr(a:Array, attr:String) {
 					</section>
 				</section>
 				<section>
-					<h2>References</h2>
+					<h2>Thank you!</h2>
+					<p>Links:</p>
 					<ul>
-						<li><a href="http://www.computerworld.com.au/article/279011/a-z_programming_languages_bourne_shell_sh/">http://www.computerworld.com.au/article/279011/a-z_programming_languages_bourne_shell_sh/</a></li>
+						<li><a href="https://github.com/ilyash/ngs">https://github.com/ilyash/ngs</a> - Next Generation Shell project</li>
+						<li><a href="https://ilyash.github.io/ngs-presentation">https://ilyash.github.io/ngs-presentation</a> - This presentation</li>
+						<li><a href="http://www.computerworld.com.au/article/279011/a-z_programming_languages_bourne_shell_sh/">http://www.computerworld.com.au/article/279011/a-z_programming_languages_bourne_shell_sh/</a> - Interview with Steve Bourne</li>
 					</ul>
 				</section>
 			</div>
