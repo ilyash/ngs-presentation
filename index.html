@@ -344,12 +344,16 @@ ls = local["ls"]</code></pre>
 						<p>&hellip; kind of</p>
 					</section>
 					<section>
-						<h2>The shell - non blocking UI</h2>
-						<p>Except for editors, how many interactive programs do you really use?</p>
-						<pre># dd if=/dev/hda &hellip; | rsync -aP &hellip;
+						<h2>The shell - stuck UI (wrong)</h2>
+						<p>Except for editors, how many interactive programs do you really use? We have:</p>
+						<pre># dd if=/dev/hda &hellip; | ssh &hellip;
 _</pre>
-						<p>&hellip; and you're blocked. Should be:</p>
-						<pre>[56%, ETA 20m] dd if=/dev/hda &hellip; | rsync -aP &hellip;
+						<p>&hellip; and you're blocked.</p>
+					</section>
+					<section>
+						<h2>The shell - non blocking UI (right)</h2>
+						<p>Should be:</p>
+						<pre>10:23 [56%, 20MB/s, ETA 20m] dd if=/dev/hda &hellip; | ssh &hellip;
 # _</pre>
 					</section>
 					<section>
@@ -360,7 +364,7 @@ _</pre>
 					</section>
 					<section>
 						<h2>The shell - completion</h2>
-						<p>No: simple instead of right</p>
+						<p>Wrong way: simple instead of right</p>
 						<pre><code># apt-cache search ^bash completion
 bash - &hellip;
 bash-completion - &hellip;
@@ -368,6 +372,7 @@ python-argcomplete - &hellip;
 python3-argcomplete - &hellip;
 # apt-get install &lt;TAB&gt;&lt;TAB&gt;
 Display all 54316 possibilities? (y or n)</code></pre>
+						<p>Also: why not navigate and pick?</p>
 					</section>
 					<section>
 						<h2>The shell - pipe (pre)view</h2>
@@ -378,16 +383,19 @@ Display all 54316 possibilities? (y or n)</code></pre>
 					</section>
 					<section>
 						<h2>The shell - history</h2>
-						<p>Context. Currently only timestamp.</p>
+						<p>Context / state. Currently only timestamp.</p>
 						<ul>
+							<li>Directory</li>
+							<li>Values of used variables</li>
+							<li>Globbing results</li>
 							<li>Exit code</li>
 							<li>Output</li>
-							<li>Values of used variables</li>
+							<li>more &hellip;</li>
 						</ul>
 					</section>
 					<section>
 						<h2>The shell - UI mock</h2>
-						<iframe width="640" height="480" src="https://www.youtube.com/embed/T5Bpu4thVNo" frameborder="0" allowfullscreen></iframe>
+						<iframe width="640" height="480" src="https://www.youtube.com/embed/T5Bpu4thVNo?modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
 					</section>
 				</section>
 				<section>
@@ -479,9 +487,7 @@ defg '$()'(*args) {
 						<h3>optimized for common cases</h3>
 						<p><code>.Reservations.Instances</code> (code from stdlib)</p>
 						<pre><code>
-defg __get_attr(a:Array, attr:String) {
-	map(a, __get_attr, attr)
-}
+defg '.'(a:Array, attr:String) { map(a, (.), attr) }
 						</code></pre>
 					</section>
 					<section>
@@ -574,7 +580,7 @@ defg __get_attr(a:Array, attr:String) {
 				center: true,
 				slideNumber: true,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+				transition: 'none', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
 				dependencies: [
